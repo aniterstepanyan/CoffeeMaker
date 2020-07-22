@@ -18,7 +18,7 @@ public class CoffeeLoop {
 
         /*one cup of latte contains: */
         int l_water = 350;
-        int l_milk = 75;
+        int l_milk = 75
         int l_coffee = 20;
         int l_cost = 7;
 

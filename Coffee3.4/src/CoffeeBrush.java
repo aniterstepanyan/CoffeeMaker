@@ -1,17 +1,22 @@
 import java.util.Scanner; //import Scanner from library
 public class CoffeeBrush {
+
     private enum State {
         Ready, SelectCoffee, Off, Filling
     }
 
-    private Scanner scan = new Scanner(System.in);
+    public Scanner scan = new Scanner(System.in);
 
-    /*buy options*/
+    /**
+     * buy options
+     * */
     private final int espresso = 1;
     private final int latte = 2;
     private final int cappuccino = 3;
 
-    /*initial resources*/
+    /**
+     * initial resources
+     * */
     private int water = 400;
     private int milk = 540;
     private int coffee = 120;
@@ -20,33 +25,43 @@ public class CoffeeBrush {
 
     private State state = State.Ready;
 
-    private CoffeeBrush(){
+    CoffeeBrush(){
         setReady();
     }
 
-    /*one cup of espresso contains: */
+    /**
+     * one cup of espresso contains:
+     * */
     private int e_water = 250;
     private int e_coffee = 16;
     private int e_cost = 4;
 
-    /*one cup of latte contains: */
+    /**
+     * one cup of latte contains:
+     * */
     private int l_water = 350;
     private int l_milk = 75;
     private int l_coffee = 20;
     private int l_cost = 7;
 
-    /*one cup of cappuccino contains: */
+    /**
+     * one cup of cappuccino contains:
+     * */
     private int c_water = 200;
     private int c_milk = 100;
     private int c_coffee = 12;
     private int c_cost = 6;
 
-    /*buy method*/
+    /**
+     * buy method
+     * */
     private void buy(){
         System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
         int num = scan.nextInt();
 
-        /*espresso stuff*/
+        /**
+         * espresso stuff
+         * */
         if (num == espresso) {
             if (water >= e_water && coffee >= e_coffee) {
                 System.out.println("I have enough resources, making you a coffee!");
@@ -61,7 +76,9 @@ public class CoffeeBrush {
             }
         }
 
-        /*latte stuff*/
+        /**
+         * latte stuff
+         * */
          else if (num == latte) {
             if (water >= l_water && milk >= l_milk && coffee >= l_coffee) {
                 System.out.println("I have enough resources, making you a coffee!");
@@ -80,7 +97,9 @@ public class CoffeeBrush {
 
         }
 
-        /*cappuccino stuff*/
+        /**
+         * cappuccino stuff
+         * */
          else if (num == cappuccino) {
             if (water >= c_water && milk >= c_milk && coffee >= c_coffee) {
                 System.out.println("I have enough resources, making you a coffee!");
@@ -102,7 +121,9 @@ public class CoffeeBrush {
         }
     }
 
-    /*remaining method*/
+    /**
+     * remaining method
+     * */
     private void remaining(){
         System.out.println("The coffee machine has:");
         System.out.println(water + " of water");
@@ -112,13 +133,17 @@ public class CoffeeBrush {
         System.out.println(money + "$ of money");
     }
 
-    /*take method*/
+    /**
+     * take method
+     * */
     private void take() {
         System.out.println("I gave you $" + money);
         money = money - money;
     }
 
-    /*fill method*/
+    /**
+     * fill method
+     * */
     private void fill(){
         Scanner f_scan = new Scanner(System.in);
         System.out.println("Write how many ml of water do you want to add:");
@@ -141,8 +166,10 @@ public class CoffeeBrush {
         System.out.println("Write action (buy, fill, take, remaining, exit): ");
     }
 
-    /*whole action*/
-    private void action(String input){
+    /**
+     * whole action
+     * */
+    void action(String input){
         if(input.equals("remaining")) {
             remaining();
             setReady();
@@ -167,17 +194,13 @@ public class CoffeeBrush {
 
 
     }
-    /*exit method*/
+    /**
+     * exit method
+     * */
     public boolean isOff (){
         return state == State.Off;
     }
-    public static void main(String args[]) {
-        CoffeeBrush cb = new CoffeeBrush();
-        while(!cb.isOff()){
-            String input = cb.scan.nextLine();
-            cb.action(input);
-        }
-    }
+
 }
 
 

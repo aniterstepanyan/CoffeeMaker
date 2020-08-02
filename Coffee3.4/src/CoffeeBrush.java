@@ -1,21 +1,14 @@
 import java.util.Scanner; //import Scanner from library
 public class CoffeeBrush {
-
-    private enum State {
-        Ready, SelectCoffee, Off, Filling
-    }
-
-    public Scanner scan = new Scanner(System.in);
-
     /**
-     * buy options
+     * Buy options
      * */
     private final int espresso = 1;
     private final int latte = 2;
     private final int cappuccino = 3;
 
     /**
-     * initial resources
+     * Initial resources of coffee machine
      * */
     private int water = 400;
     private int milk = 540;
@@ -23,53 +16,60 @@ public class CoffeeBrush {
     private int cups = 9;
     private int money = 550;
 
-    private State state = State.Ready;
+    /**
+     * One cup of espresso contains:
+     * */
+    private int espressoWater = 250;
+    private int espressoCoffee = 16;
+    private int espressoCost = 4;
+    private State state = State.READY;
+
+    /**
+     * One cup of latte contains:
+     * */
+    private int latteWater = 350;
+    private int latteMilk = 75;
+    private int latteCoffee = 20;
+    private int latteCost = 7;
+
+    /**
+     * One cup of cappuccino contains:
+     * */
+    private int cappuccinoWater = 200;
+    private int cappuccinoMilk = 100;
+    private int cappuccinoCoffee = 12;
+    private int cappuccinoCost = 6;
+
+    private enum State {
+        READY, SELECT_COFFEE, OFF, FILLING
+    }
+
+    public Scanner scan = new Scanner(System.in);
 
     CoffeeBrush(){
         setReady();
     }
 
     /**
-     * one cup of espresso contains:
-     * */
-    private int e_water = 250;
-    private int e_coffee = 16;
-    private int e_cost = 4;
-
-    /**
-     * one cup of latte contains:
-     * */
-    private int l_water = 350;
-    private int l_milk = 75;
-    private int l_coffee = 20;
-    private int l_cost = 7;
-
-    /**
-     * one cup of cappuccino contains:
-     * */
-    private int c_water = 200;
-    private int c_milk = 100;
-    private int c_coffee = 12;
-    private int c_cost = 6;
-
-    /**
-     * buy method
+     * Buy method
+     * This method is scanning your choice
      * */
     private void buy(){
         System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
         int num = scan.nextInt();
 
         /**
-         * espresso stuff
+         * Espresso if else statement
+         * Calculates resources if you choose espresso
          * */
         if (num == espresso) {
-            if (water >= e_water && coffee >= e_coffee) {
+            if (water >= espressoWater && coffee >= espressoCoffee) {
                 System.out.println("I have enough resources, making you a coffee!");
-                water = water - e_water;
-                coffee = coffee - e_coffee;
+                water = water - espressoWater;
+                coffee = coffee - espressoCoffee;
                 --cups;
-                money = money + e_cost;
-            } else if (water < e_water) {
+                money = money + espressoCost;
+            } else if (water < espressoWater) {
                 System.out.println("Sorry, not enough water!");
             } else {
                 System.out.println("Sorry, not enough coffee!");
@@ -77,19 +77,20 @@ public class CoffeeBrush {
         }
 
         /**
-         * latte stuff
+         * Latte if else statement
+         * Calculates resources if you choose latte
          * */
          else if (num == latte) {
-            if (water >= l_water && milk >= l_milk && coffee >= l_coffee) {
+            if (water >= latteWater && milk >= latteMilk && coffee >= latteCoffee) {
                 System.out.println("I have enough resources, making you a coffee!");
-                water = water - l_water;
-                milk = milk - l_milk;
-                coffee = coffee - l_coffee;
+                water = water - latteWater;
+                milk = milk - latteMilk;
+                coffee = coffee - latteCoffee;
                 --cups;
-                money = money + l_cost;
-            } else if (water < l_water) {
+                money = money + latteCost;
+            } else if (water < latteWater) {
                 System.out.println("Sorry, not enough water!");
-            } else if (milk < l_milk) {
+            } else if (milk < latteMilk) {
                 System.out.println("Sorry, not enough milk!");
             } else {
                 System.out.println("Sorry, not enough coffee!");
@@ -98,19 +99,20 @@ public class CoffeeBrush {
         }
 
         /**
-         * cappuccino stuff
+         * Cappuccino if else statement
+         * Calculates resources if you choose cappuccino
          * */
          else if (num == cappuccino) {
-            if (water >= c_water && milk >= c_milk && coffee >= c_coffee) {
+            if (water >= cappuccinoWater && milk >= cappuccinoMilk && coffee >= cappuccinoCoffee) {
                 System.out.println("I have enough resources, making you a coffee!");
-                water = water - c_water;
-                milk = milk - c_milk;
-                coffee = coffee - c_coffee;
+                water = water - cappuccinoWater;
+                milk = milk - cappuccinoMilk;
+                coffee = coffee - cappuccinoCoffee;
                 --cups;
-                money = money + c_cost;
-            } else if (water < c_water) {
+                money = money + cappuccinoCost;
+            } else if (water < cappuccinoWater) {
                 System.out.println("Sorry, not enough water!");
-            } else if (milk < c_milk) {
+            } else if (milk < cappuccinoMilk) {
                 System.out.println("Sorry, not enough milk!");
             } else {
                 System.out.println("Sorry, not enough coffee!");
@@ -122,7 +124,8 @@ public class CoffeeBrush {
     }
 
     /**
-     * remaining method
+     * Remaining method
+     * Method just remains you how much resources you have
      * */
     private void remaining(){
         System.out.println("The coffee machine has:");
@@ -134,7 +137,8 @@ public class CoffeeBrush {
     }
 
     /**
-     * take method
+     * Take method
+     * This method gave you all money
      * */
     private void take() {
         System.out.println("I gave you $" + money);
@@ -142,32 +146,33 @@ public class CoffeeBrush {
     }
 
     /**
-     * fill method
+     * Fill method
+     * You can fill how much resources you want
      * */
     private void fill(){
-        Scanner f_scan = new Scanner(System.in);
+        Scanner fillScan = new Scanner(System.in);
         System.out.println("Write how many ml of water do you want to add:");
-        int fill_water = f_scan.nextInt();
+        int fillWater = fillScan.nextInt();
         System.out.println("Write how many ml of milk do you want to add:");
-        int fill_milk = f_scan.nextInt();
+        int fillMilk = fillScan.nextInt();
         System.out.println("Write how many grams of coffee beans do you want to add:");
-        int fill_coffee = f_scan.nextInt();
+        int fillCoffee = fillScan.nextInt();
         System.out.println("Write how many disposable cups of coffee do you want to add:");
-        int fill_cups = f_scan.nextInt();
+        int fillCups = fillScan.nextInt();
 
-        water = water + fill_water;
-        milk = milk + fill_milk;
-        coffee = coffee + fill_coffee;
-        cups = cups + fill_cups;
+        water = water + fillWater;
+        milk = milk + fillMilk;
+        coffee = coffee + fillCoffee;
+        cups = cups + fillCups;
     }
 
     private void setReady(){
-        state = State.Ready;
+        state = State.READY;
         System.out.println("Write action (buy, fill, take, remaining, exit): ");
     }
 
     /**
-     * whole action
+     * Whole action
      * */
     void action(String input){
         if(input.equals("remaining")) {
@@ -176,12 +181,12 @@ public class CoffeeBrush {
         }
         else if(input.equals("buy")){
             buy();
-            state = State.SelectCoffee;
+            state = State.SELECT_COFFEE;
             setReady();
         }
         else if(input.equals("fill")){
             fill();
-            state = State.Filling;
+            state = State.FILLING;
             setReady();
         }
         else if(input.equals("take")){
@@ -189,16 +194,17 @@ public class CoffeeBrush {
             setReady();
         }
         else if(input.equals("exit")){
-            state = State.Off;
+            state = State.OFF;
         }
 
 
     }
     /**
-     * exit method
+     * Exit method
+     * Exit program
      * */
     public boolean isOff (){
-        return state == State.Off;
+        return state == State.OFF;
     }
 
 }

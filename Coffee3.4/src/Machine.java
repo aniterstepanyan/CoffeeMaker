@@ -1,9 +1,9 @@
 public class Machine {
     public static void main(String args[]) {
-        CoffeeBrush cb = new CoffeeBrush();
-        while(!cb.isOff()){
-            String input = cb.scan.nextLine();
-            cb.action(input);
+        CoffeeBrush coffeeBrush = new CoffeeBrush();
+        while(!coffeeBrush.isOff()){
+            String input = coffeeBrush.scan.nextLine();
+            coffeeBrush.action(input);
         }
     }
 }
